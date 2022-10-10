@@ -18,8 +18,15 @@ const Tabs = (topics) => {
   const newTopics = document.createElement('div');
   newTopics.classList.add('topics');
   console.log(topics);
+  // for (let i = 0; i < topics.length; i++) {
+  //   const newTopic = document.createElement('div');
+  //   newTopic.classList.add('tab');
+  //   newTopic.textContent = topics[i];
+  //   console.log(newTopic);
+  //   newTopics.appendChild(newTopic);
+  // }
   topics.forEach((topic) => {
-    const newTopic = document.createElement('div');
+    let newTopic = document.createElement('div');
     newTopic.classList.add('tab');
     newTopic.textContent = topic;
     newTopics.appendChild(newTopic);
@@ -27,6 +34,8 @@ const Tabs = (topics) => {
   return newTopics;
 }
 
+// const arr = ["java", "coffee", "web", "html", "css"]
+// console.log(Tabs(arr));
 const tabsAppender = (selector) => {
   // TASK 4
   // ---------------------
@@ -38,9 +47,13 @@ const tabsAppender = (selector) => {
   axios.get('http://localhost:5001/api/topics')
     .then( res => {
       console.log(res);
-      const newTabs = Tabs(res.data);
+      // const newTabs = Tabs(res.data);
       const appender = document.querySelector(selector);
-      appender.appendChild(newTabs);
+      appender.appendChild(Tabs(res.data.topics));
+      console.log(appender);
+    })
+    .catch(err => {
+      console.log(err);
     })
 }
 
